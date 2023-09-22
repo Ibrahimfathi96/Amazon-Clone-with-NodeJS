@@ -43,6 +43,14 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
+  void signInUser() {
+    authServices.signInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+  }
+
   //! Toggle between Password Visibilty
   void togglePasswordVisibility() {
     setState(() {
@@ -185,7 +193,11 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           CustomButton(
                             text: 'Sign-In',
-                            onTap: () {},
+                            onTap: () {
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            },
                           ),
                         ],
                       ),
