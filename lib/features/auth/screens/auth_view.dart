@@ -23,6 +23,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  bool isVisible = false;
+  IconData icon = Icons.visibility;
 
   @override
   void dispose() {
@@ -39,6 +41,14 @@ class _AuthScreenState extends State<AuthScreen> {
       password: _passwordController.text,
       name: _nameController.text,
     );
+  }
+
+  //! Toggle between Password Visibilty
+  void togglePasswordVisibility() {
+    setState(() {
+      isVisible = !isVisible;
+      icon = isVisible ? Icons.visibility_off : Icons.visibility;
+    });
   }
 
   @override
@@ -81,6 +91,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
+                //! Sign Up
                 if (_auth == Auth.signUp)
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -89,6 +100,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       key: _signUpFormKey,
                       child: Column(
                         children: [
+                          //! Full Name
                           CustomTextFormField(
                             hintText: 'Full Name',
                             controller: _nameController,
@@ -96,6 +108,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
+                          //! E-mail
                           CustomTextFormField(
                             hintText: 'Email',
                             controller: _emailController,
@@ -103,9 +116,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
+                          //! Password
                           CustomTextFormField(
                             hintText: 'Password',
                             controller: _passwordController,
+                            icon: icon,
+                            obscureText: isVisible,
+                            onChangeVisibiltyPress: togglePasswordVisibility,
                           ),
                           const SizedBox(
                             height: 10,
@@ -143,6 +160,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
+                //! Sign IN
                 if (_auth == Auth.signIn)
                   Container(
                     padding: const EdgeInsets.all(8),
