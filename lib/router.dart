@@ -12,7 +12,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (context) => const Scaffold(
           body: Center(
             child: Text(
-                'Screen does not exist,\ntry to navigate to another valid screen'),
+              'Screen does not exist,\ntry to navigate to another valid screen',
+            ),
           ),
         ),
       );
