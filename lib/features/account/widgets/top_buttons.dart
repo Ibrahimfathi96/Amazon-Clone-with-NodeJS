@@ -15,7 +15,7 @@ class CustomTopButton extends StatelessWidget {
               onTap: () {},
             ),
             AccountButton(
-              buttonText: "Your Seller",
+              buttonText: "Turn Seller",
               onTap: () {},
             ),
           ],
@@ -24,12 +24,13 @@ class CustomTopButton extends StatelessWidget {
         Row(
           children: [
             AccountButton(
-              buttonText: "Log out",
+              buttonText: "Your Wishlist",
               onTap: () {},
             ),
             AccountButton(
-              buttonText: "Your Wish List",
+              buttonText: "Log Out",
               onTap: () {},
+              isLogOut: true,
             ),
           ],
         ),

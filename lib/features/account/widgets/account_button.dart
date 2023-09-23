@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class AccountButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onTap;
+  final bool isLogOut;
+
   const AccountButton({
     super.key,
     required this.buttonText,
     required this.onTap,
+    this.isLogOut = false,
   });
 
   @override
@@ -18,7 +21,7 @@ class AccountButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: Colors.white, width: 0),
           borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
+          color: isLogOut ? Colors.red : Colors.white,
         ),
         child: OutlinedButton(
           style: ElevatedButton.styleFrom(
@@ -30,9 +33,9 @@ class AccountButton extends StatelessWidget {
           onPressed: onTap,
           child: Text(
             buttonText,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
+            style: TextStyle(
+              color: isLogOut ? Colors.white : Colors.black,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),

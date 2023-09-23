@@ -1,5 +1,6 @@
 import 'package:amazon_clone/constants/global_variables.dart';
-import 'package:amazon_clone/features/account/widgets/below_app_bar_widget.dart';
+import 'package:amazon_clone/features/account/widgets/app_bar_bottom_widget.dart';
+import 'package:amazon_clone/features/account/widgets/app_bar_upper_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -13,41 +14,10 @@ class CustomAppBar extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: GlobalVariables.appBarGradient,
       ),
-      child: Column(
+      child: const Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Image.asset(
-                  "assets/amazon_in.png",
-                  width: 120,
-                  height: 46,
-                  color: Colors.black,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                child: const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: 16,
-                      ),
-                      child: Icon(
-                        Icons.notifications_outlined,
-                      ),
-                    ),
-                    Icon(Icons.search),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const BelowAppBarWidget(),
+          AppBarUpperWidget(),
+          AppBarBottomWidget(),
         ],
       ),
     );
