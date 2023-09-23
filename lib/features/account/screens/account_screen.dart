@@ -1,8 +1,9 @@
 import 'package:amazon_clone/constants/global_variables.dart';
-import 'package:amazon_clone/features/account/widgets/below_app_bar_widget.dart';
+import 'package:amazon_clone/features/account/widgets/custom_appbar.dart';
 import 'package:amazon_clone/features/account/widgets/orders.dart';
 import 'package:amazon_clone/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AccountScreen extends StatelessWidget {
   static const String routeName = '/AccountScreen';
@@ -11,57 +12,21 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return const AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Color(0XFF1DC9C1),
+        statusBarIconBrightness: Brightness.light,
+      ),
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Image.asset(
-                  "assets/amazon_in.png",
-                  width: 120,
-                  height: 46,
-                  color: Colors.black,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                child: const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: 16,
-                      ),
-                      child: Icon(
-                        Icons.notifications_outlined,
-                      ),
-                    ),
-                    Icon(Icons.search),
-                  ],
-                ),
-              ),
+              CustomAppBar(),
+              CustomTopButton(),
+              OrdersWidget(),
             ],
           ),
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
-            ),
-          ),
         ),
-      ),
-      body: const Column(
-        children: [
-          BelowAppBarWidget(),
-          SizedBox(height: 10),
-          CustomTopButton(),
-          SizedBox(height: 20),
-          OrdersWidget(),
-        ],
       ),
     );
   }

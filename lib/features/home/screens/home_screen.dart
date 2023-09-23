@@ -16,9 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomeScreen"),
-      ),
       body: Center(
         child: Text(
           user.toJson(),

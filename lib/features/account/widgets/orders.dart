@@ -22,6 +22,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

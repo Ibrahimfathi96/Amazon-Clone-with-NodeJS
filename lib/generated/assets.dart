@@ -2,7 +2,15 @@
 class Assets {
   Assets._();
 
+  static const String assetsAmazon = 'assets/amazon.png';
   static const String assetsAmazonIcon = 'assets/amazon-icon.png';
+  static const String assetsAmazonIn = 'assets/amazon_in.png';
+  static const String assetsAppliances = 'assets/appliances.jpeg';
+  static const String assetsBooks = 'assets/books.jpeg';
+  static const String assetsElectronics = 'assets/electronics.jpeg';
+  static const String assetsEssentials = 'assets/essentials.jpeg';
+  static const String assetsFashion = 'assets/fashion.jpeg';
+  static const String assetsMobiles = 'assets/mobiles.jpeg';
   static const String assetsSplash = 'assets/splash.png';
   static const String assetsWhiteSplash = 'assets/white_splash.png';
 }
