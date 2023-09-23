@@ -1,6 +1,4 @@
 import 'package:amazon_clone/constants/global_variables.dart';
-import 'package:amazon_clone/features/account/widgets/app_bar_bottom_widget.dart';
-import 'package:amazon_clone/features/account/widgets/app_bar_upper_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -45,7 +43,9 @@ class HomeAppBar extends StatelessWidget {
                       ),
                     ),
                     prefixIcon: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        debugPrint("SearchIcon Clicked");
+                      },
                       child: const Padding(
                         padding: EdgeInsets.only(left: 6),
                         child: Icon(
@@ -62,12 +62,16 @@ class HomeAppBar extends StatelessWidget {
           ),
           Container(
             color: Colors.transparent,
-            height: 42,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            child: const Icon(
-              Icons.mic,
-              size: 26,
-              color: Colors.black,
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            child: IconButton(
+              onPressed: () {
+                debugPrint("Mic Clicked");
+              },
+              icon: const Icon(
+                Icons.mic,
+                size: 30,
+                color: Colors.black,
+              ),
             ),
           ),
         ],
