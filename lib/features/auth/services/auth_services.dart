@@ -104,4 +104,44 @@ class AuthServices {
       );
     }
   }
+
+  //! Get user Data
+  void getUserData(BuildContext context) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? token = preferences.getString("x-auth-token");
+
+      if (token == null) {
+        token = '';
+        preferences.setString("x-auth-token", token);
+      }
+
+      var tokenRes = await http.post(
+        Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "x-auth-token": token
+        },
+      );
+
+      var response = jsonDecode(tokenRes.body);
+
+      if (response == true) {
+        http.Response userResponse = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            "x-auth-token": token
+          },
+        );
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userResponse.body);
+      }
+    } catch (e) {
+      showSnakeBar(
+        context,
+        "catch-errors:${e.toString()}",
+      );
+    }
+  }
 }
