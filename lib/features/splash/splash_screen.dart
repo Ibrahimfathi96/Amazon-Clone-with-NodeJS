@@ -1,3 +1,4 @@
+import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/features/auth/screens/auth_view.dart';
 import 'package:amazon_clone/features/auth/services/auth_services.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
@@ -24,9 +25,15 @@ class _SplashScreenState extends State<SplashScreen> {
     ).then((value) {
       Provider.of<UserProvider>(context, listen: false).user.token.isNotEmpty
           ? Navigator.pushNamedAndRemoveUntil(
-              context, HomeScreen.routeName, (route) => false)
+              context,
+              CustomBottomBar.routeName,
+              (route) => false,
+            )
           : Navigator.pushNamedAndRemoveUntil(
-              context, AuthScreen.routeName, (route) => false);
+              context,
+              AuthScreen.routeName,
+              (route) => false,
+            );
     });
   }
 

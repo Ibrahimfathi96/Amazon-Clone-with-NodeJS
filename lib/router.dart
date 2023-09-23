@@ -1,3 +1,4 @@
+import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/features/auth/screens/auth_view.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/splash/splash_screen.dart';
@@ -8,6 +9,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case AuthScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const AuthScreen(),
+      );
+    case CustomBottomBar.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CustomBottomBar(),
       );
     case SplashScreen.routeName:
       return MaterialPageRoute(
