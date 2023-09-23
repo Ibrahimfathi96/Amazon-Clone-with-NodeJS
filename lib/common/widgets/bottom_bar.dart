@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/account/screens/account_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
@@ -21,11 +22,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         child: Text("Cart Screen"),
       ),
     ),
-    const Scaffold(
-      body: Center(
-        child: Text("Profile Screen"),
-      ),
-    ),
+    const AccountScreen(),
   ];
 
   void updatePage(int updatedPage) {
@@ -132,7 +129,7 @@ class BottomBarIcon extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 6,
+          height: 8,
         ),
         icon,
       ],
