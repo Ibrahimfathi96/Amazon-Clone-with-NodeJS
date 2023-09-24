@@ -1,5 +1,7 @@
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
+import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_view.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/splash/splash_screen.dart';
@@ -18,6 +20,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case AdminScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const AdminScreen(),
+      );
+    case AddProductScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const AddProductScreen(),
+      );
+    case PostsScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const PostsScreen(),
       );
     case SplashScreen.routeName:
       return MaterialPageRoute(

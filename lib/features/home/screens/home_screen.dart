@@ -1,4 +1,3 @@
-import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/home/widgets/carousel_images.dart';
 import 'package:amazon_clone/features/home/widgets/deal_of_the_day.dart';
 import 'package:amazon_clone/features/home/widgets/home_appbar.dart';
@@ -17,20 +16,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              HomeAppBar(),
-              AddressBox(),
-              SizedBox(height: 10),
-              HomeTopCategories(),
-              SizedBox(height: 10),
-              CarouselImagesSlider(),
-              DealOfTheDay()
-            ],
-          ),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(100),
+          child: HomeAppBar(),
+        ),
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: const [
+            HomeTopCategories(),
+            CarouselImagesSlider(),
+            DealOfTheDay()
+          ],
         ),
       ),
     );

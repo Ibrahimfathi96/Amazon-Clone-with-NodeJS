@@ -1,3 +1,4 @@
+import 'package:amazon_clone/common/widgets/custom_bottom_bar_icon.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/account/screens/account_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
@@ -46,7 +47,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           //HOME PAGE
           BottomNavigationBarItem(
             label: '',
-            icon: BottomBarIcon(
+            icon: CustomBottomBarIcon(
               currentPage: 0,
               isSelected: page == 0 ? true : false,
               icon: const Icon(
@@ -57,7 +58,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           //CART
           BottomNavigationBarItem(
             label: '',
-            icon: BottomBarIcon(
+            icon: CustomBottomBarIcon(
               currentPage: 1,
               isSelected: page == 1 ? true : false,
               icon: const badges.Badge(
@@ -82,7 +83,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           //ACCOUNT
           BottomNavigationBarItem(
             label: '',
-            icon: BottomBarIcon(
+            icon: CustomBottomBarIcon(
               currentPage: 2,
               isSelected: page == 2 ? true : false,
               icon: const Icon(
@@ -92,47 +93,6 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class BottomBarIcon extends StatelessWidget {
-  final double currentPage;
-  final Widget icon;
-  final bool isSelected;
-
-  const BottomBarIcon({
-    super.key,
-    required this.currentPage,
-    required this.icon,
-    required this.isSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    double bottomBarWidth = 50;
-    double bottomBarBorderWidth = 5;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          width: bottomBarWidth,
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: isSelected
-                    ? GlobalVariables.selectedNavBarColor
-                    : GlobalVariables.backgroundColor,
-                width: bottomBarBorderWidth,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        icon,
-      ],
     );
   }
 }
