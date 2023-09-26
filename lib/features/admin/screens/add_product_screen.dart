@@ -4,6 +4,7 @@ import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/admin/services/admin_services.dart';
 import 'package:amazon_clone/features/admin/widgets/add_product_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -23,6 +24,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  final AdminServices adminServices = AdminServices();
+  final GlobalKey<FormState> addProductFormKey = GlobalKey<FormState>();
+
+  void sellProducts() {
+    if (addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProducts(
+        context: context,
+        name: productNameController.text,
+        description: descriptionController.text,
+        category: category,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        images: images,
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -60,6 +77,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: addProductFormKey,
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0).copyWith(top: 20),
@@ -176,7 +194,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
                 CustomButton(
                   text: "Sell",
-                  onTap: () {},
+                  onTap: sellProducts,
                 ),
               ],
             ),

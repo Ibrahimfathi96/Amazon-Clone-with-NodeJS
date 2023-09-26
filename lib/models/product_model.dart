@@ -8,7 +8,6 @@ class ProductMd {
   final List<String> images;
   final String category;
   final String? id;
-  final String? userId;
 
   ProductMd({
     required this.name,
@@ -18,7 +17,6 @@ class ProductMd {
     required this.images,
     required this.category,
     this.id,
-    this.userId,
   });
 
   factory ProductMd.fromMap(Map<String, dynamic> map) {
@@ -30,14 +28,12 @@ class ProductMd {
       images: List<String>.from(map['images']),
       category: map['category'] ?? '',
       id: map['_id'],
-      userId: map['userId'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'userId': userId,
       'name': name,
       'description': description,
       'quantity': quantity,

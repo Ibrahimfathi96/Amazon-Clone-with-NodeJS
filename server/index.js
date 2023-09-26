@@ -4,18 +4,16 @@ const app = express();
 const mongoose = require("mongoose");
 //IMPORTS FROM OTHER FILES
 const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
 //INIT
-//const PORT = 3000;
 const PORT = 3000;
-// const PORT = 50274;
 
 const url =
   "mongodb+srv://ibmf796:ibmf171996@amazon-clone-db.wg4ihqg.mongodb.net/AmazonClone?retryWrites=true&w=majority";
-// "mongodb+srv://ibmf796:01156789207h@cluster0.npuouyo.mongodb.net/?retryWrites=true&w=majority";
-// "mongodb+srv://ibrahim:ibrahim1796@cluster0.an8qzvz.mongodb.net/?retryWrites=true&w=majority";
 //middleware
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
 //Connections
 mongoose.connect(url).then(() => {
   console.log("mongodb server started successfully");

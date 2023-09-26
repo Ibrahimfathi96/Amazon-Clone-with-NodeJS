@@ -1,13 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
-import 'package:amazon_clone/features/home/screens/home_screen.dart';
-import 'package:amazon_clone/models/myuser_model.dart';
+import 'package:amazon_clone/models/my_user_model.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -42,6 +39,7 @@ class AuthServices {
       debugPrint("===============SignUp==================================");
       debugPrint(
           "response: $response, Status-Code: ${response.statusCode}, Body: ${response.body}");
+      if (!context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,
@@ -80,17 +78,20 @@ class AuthServices {
       debugPrint("===============SignIn==================================");
       debugPrint(
           "response: $response, Status-Code: ${response.statusCode}, Body: ${response.body}");
+      if (!context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,
         onSuccess: () async {
           SharedPreferences preferences = await SharedPreferences.getInstance();
+          if (!context.mounted) return;
           Provider.of<UserProvider>(context, listen: false)
               .setUser(response.body);
           await preferences.setString(
             "x-auth-token",
             jsonDecode(response.body)['token'],
           );
+          if (!context.mounted) return;
           Navigator.pushNamedAndRemoveUntil(
             context,
             CustomBottomBar.routeName,
@@ -135,10 +136,12 @@ class AuthServices {
             "x-auth-token": token
           },
         );
+        if (!context.mounted) return;
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userResponse.body);
       }
     } catch (e) {
+      if (!context.mounted) return;
       showSnakeBar(
         context,
         "catch-errors:${e.toString()}",
