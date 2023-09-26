@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/features/admin/widgets/add_product_appbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +42,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion',
   ];
+  List<File> images = [];
+
+  selectImages() async {
+    var result = await pickImages();
+    setState(() {
+      images = result;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,33 +65,54 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const EdgeInsets.symmetric(horizontal: 16.0).copyWith(top: 20),
             child: Column(
               children: [
-                DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(10),
-                  dashPattern: const [10, 4],
-                  strokeCap: StrokeCap.round,
-                  child: Container(
-                    width: double.infinity,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.folder_open, size: 40),
-                        const SizedBox(height: 16),
-                        Text(
-                          "Select Product Images",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey.shade400,
+                images.isNotEmpty
+                    ? CarouselSlider(
+                        items: images
+                            .map(
+                              (e) => Builder(
+                                builder: (context) => Image.file(
+                                  e,
+                                  fit: BoxFit.cover,
+                                  height: 500,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        options: CarouselOptions(
+                          viewportFraction: 1,
+                          height: 200,
+                        ),
+                      )
+                    : GestureDetector(
+                        onTap: selectImages,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: const Radius.circular(10),
+                          dashPattern: const [10, 4],
+                          strokeCap: StrokeCap.round,
+                          child: Container(
+                            width: double.infinity,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.folder_open, size: 40),
+                                const SizedBox(height: 16),
+                                Text(
+                                  "Select Product Images",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey.shade400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
                 const SizedBox(height: 30),
                 CustomTextFormField(
                   controller: productNameController,
@@ -105,7 +138,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 Container(
                   width: double.infinity,
                   height: 40,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     border: Border.all(
