@@ -5,14 +5,17 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final IconData? icon;
   final bool obscureText;
-  final VoidCallback? onChangeVisibiltyPress;
+  final int maxLines;
+  final VoidCallback? onChangeVisibilityPress;
+
   const CustomTextFormField({
     Key? key,
     required this.controller,
     this.icon,
-    this.onChangeVisibiltyPress,
+    this.onChangeVisibilityPress,
     this.obscureText = false,
     required this.hintText,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
@@ -26,11 +29,12 @@ class CustomTextFormField extends StatelessWidget {
         return null;
       },
       obscureText: obscureText,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         suffixIcon: IconButton(
           icon: Icon(icon),
-          onPressed: onChangeVisibiltyPress,
+          onPressed: onChangeVisibilityPress,
         ),
         hintStyle: const TextStyle(fontSize: 20),
         border: const OutlineInputBorder(

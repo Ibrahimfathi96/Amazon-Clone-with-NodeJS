@@ -130,7 +130,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             controller: _passwordController,
                             icon: icon,
                             obscureText: isVisible,
-                            onChangeVisibiltyPress: togglePasswordVisibility,
+                            onChangeVisibilityPress: togglePasswordVisibility,
                           ),
                           const SizedBox(
                             height: 10,
