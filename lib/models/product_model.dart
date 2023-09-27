@@ -3,8 +3,8 @@ import 'dart:convert';
 class ProductMd {
   final String name;
   final String description;
-  final double quantity;
-  final double price;
+  final num quantity;
+  final num price;
   final List<String> images;
   final String category;
   final String? id;

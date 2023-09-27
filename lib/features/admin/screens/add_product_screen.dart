@@ -4,6 +4,7 @@ import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/admin/services/admin_services.dart';
 import 'package:amazon_clone/features/admin/widgets/add_product_appbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -27,7 +28,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final AdminServices adminServices = AdminServices();
   final GlobalKey<FormState> addProductFormKey = GlobalKey<FormState>();
 
-  void sellProducts() {
+  void sellProducts() async {
     if (addProductFormKey.currentState!.validate() && images.isNotEmpty) {
       adminServices.sellProducts(
         context: context,
@@ -37,6 +38,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
         price: double.parse(priceController.text),
         quantity: double.parse(quantityController.text),
         images: images,
+        onSuccess: () async {
+          if (!context.mounted) return;
+          showSnakeBar(context, "Product Added Successfully!");
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AdminScreen.routeName,
+            (route) => false,
+          );
+        },
       );
     }
   }
@@ -46,7 +56,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     productNameController.dispose();
     descriptionController.dispose();
     quantityController.dispose();
-    descriptionController.dispose();
+    priceController.dispose();
     super.dispose();
   }
 
