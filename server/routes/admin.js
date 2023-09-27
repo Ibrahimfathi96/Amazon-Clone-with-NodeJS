@@ -1,7 +1,6 @@
 const express = require("express");
 const admin = require("../middlewares/adminMiddleware");
 const Product = require("../models/product");
-const e = require("express");
 const adminRouter = express.Router();
 
 //Add Product
@@ -19,7 +18,7 @@ adminRouter.post("/admin/addProduct", admin, async (req, res) => {
     product = await product.save();
     res.json(product);
   } catch (error) {
-    res.status(500).json({ err: e.message });
+    res.status(500).json({ err: error.message });
   }
 });
 module.exports = adminRouter;

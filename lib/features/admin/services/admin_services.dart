@@ -22,21 +22,22 @@ class AdminServices {
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false).user;
     try {
-      final CloudinaryPublic cloudinary =
-          CloudinaryPublic('dl7vuxust', 'dp9lglom');
-      List<String> imagesUrl = [];
-      for (int i = 0; i < 0; i++) {
+      //TODO: NOT WORKING / DIDN'T UPLOAD THE PHOTOS.
+      final cloudinary =
+          CloudinaryPublic('doehu91ch', 'u6eviuek', cache: false);
+      List<String> imageUrls = [];
+      for (int i = 0; i < images.length; i++) {
         CloudinaryResponse response = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path, folder: name),
         );
-        imagesUrl.add(response.secureUrl);
+        imageUrls.add(response.secureUrl);
       }
       ProductMd productMd = ProductMd(
         name: name,
         description: description,
         quantity: quantity,
         price: price,
-        images: imagesUrl,
+        images: imageUrls,
         category: category,
       );
       http.Response response = await http.post(
