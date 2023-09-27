@@ -1,3 +1,4 @@
+import 'package:amazon_clone/common/widgets/app_bar_leading.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +10,7 @@ class AddProductAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
+      leading: const AppBarLeading(),
       centerTitle: true,
       title: const Text(
         "Add Product",
