@@ -2,10 +2,10 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:flutter/material.dart';
 
-class HomeAppBar extends StatelessWidget {
+class SearchAppBar extends StatelessWidget {
   final void Function(String) onFieldSubmitted;
 
-  const HomeAppBar({super.key, required this.onFieldSubmitted});
+  const SearchAppBar({super.key, required this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class HomeAppBar extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 42,
-                  margin: const EdgeInsets.only(left: 16, bottom: 12, top: 6),
+                  margin: const EdgeInsets.only(left: 50, bottom: 12, top: 6),
                   child: Material(
                     borderRadius: BorderRadius.circular(8),
                     elevation: 2,
