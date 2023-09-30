@@ -10,7 +10,7 @@ class AddressBox extends StatelessWidget {
     final user = Provider.of<UserProvider>(context).user;
 
     return Container(
-      height: 40,
+      height: 38,
       padding: const EdgeInsets.only(left: 10),
       decoration: const BoxDecoration(
         gradient: LinearGradient(

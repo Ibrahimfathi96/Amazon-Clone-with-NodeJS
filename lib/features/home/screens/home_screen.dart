@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(102),
           child: HomeAppBar(
             onFieldSubmitted: navigateToSearchScreen,
           ),
