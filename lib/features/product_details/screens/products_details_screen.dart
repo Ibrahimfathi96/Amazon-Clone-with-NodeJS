@@ -1,12 +1,15 @@
 import 'package:amazon_clone/common/rating.dart';
-import 'package:amazon_clone/common/widgets/app_bar_leading.dart';
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/product_details/services/product_details_services.dart';
+import 'package:amazon_clone/features/product_details/widgets/product_details_appbar.dart';
 import 'package:amazon_clone/models/product_model.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 class ProductsDetailsScreen extends StatefulWidget {
   static const String routeName = '/ProductsDetailsScreen';
@@ -19,6 +22,26 @@ class ProductsDetailsScreen extends StatefulWidget {
 }
 
 class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
+  final ProductDetailsServices services = ProductDetailsServices();
+  num avgRating = 0;
+  num myRating = 0;
+
+  @override
+  void initState() {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    super.initState();
+    double totalRating = 0;
+    for (int i = 0; i < widget.productMd.ratings!.length; i++) {
+      totalRating += widget.productMd.ratings![i].rating;
+      if (widget.productMd.ratings![i].userId == user.id) {
+        myRating = widget.productMd.ratings![i].rating;
+      }
+    }
+    if (totalRating != 0) {
+      avgRating = totalRating / widget.productMd.ratings!.length;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
@@ -43,7 +66,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                     Text(
                       widget.productMd.id!,
                     ),
-                    const CustomRating(rating: 4),
+                    CustomRating(rating: avgRating),
                   ],
                 ),
               ),
@@ -149,7 +172,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: RatingBar.builder(
-                  initialRating: 0,
+                  initialRating: myRating.toDouble(),
                   minRating: 1,
                   allowHalfRating: true,
                   direction: Axis.horizontal,
@@ -159,100 +182,17 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                     Icons.star,
                     color: GlobalVariables.secondaryColor,
                   ),
-                  onRatingUpdate: (value) {},
+                  onRatingUpdate: (rating) {
+                    services.rateProduct(
+                      context: context,
+                      productMd: widget.productMd,
+                      rating: rating,
+                    );
+                  },
                 ),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ProductsDetailsAppBar extends StatelessWidget {
-  const ProductsDetailsAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: const AppBarLeading(),
-      flexibleSpace: Container(
-        padding: const EdgeInsets.only(left: 4),
-        decoration: const BoxDecoration(
-          gradient: GlobalVariables.appBarGradient,
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 42,
-                    margin: const EdgeInsets.only(left: 50, bottom: 12, top: 8),
-                    child: Material(
-                      borderRadius: BorderRadius.circular(8),
-                      elevation: 2,
-                      child: TextFormField(
-                        onFieldSubmitted: (value) {},
-                        decoration: InputDecoration(
-                          hintText: "Search Amazon.in",
-                          hintStyle: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.only(top: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: const BorderSide(
-                              color: Colors.black38,
-                              width: 1,
-                            ),
-                          ),
-                          prefixIcon: InkWell(
-                            onTap: () {
-                              debugPrint("SearchIcon Clicked");
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 6),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Colors.transparent,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  child: IconButton(
-                    onPressed: () {
-                      debugPrint("Mic Clicked");
-                    },
-                    icon: const Icon(
-                      Icons.mic,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CustomRating extends StatelessWidget {
-  final double rating;
+  final num rating;
 
   const CustomRating({super.key, required this.rating});
 
@@ -12,7 +12,7 @@ class CustomRating extends StatelessWidget {
     return RatingBarIndicator(
       direction: Axis.horizontal,
       itemCount: 5,
-      rating: rating,
+      rating: rating.toDouble(),
       itemSize: 15,
       itemBuilder: (context, _) => const Icon(
         Icons.star,
