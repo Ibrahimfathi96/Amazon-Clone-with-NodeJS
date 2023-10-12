@@ -21,8 +21,11 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
   final HomeServices homeServices = HomeServices();
 
   fetchCategoryProducts() async {
-    productsList = await homeServices.fetchAllProducts(
-        context: context, category: widget.category);
+    productsList = await homeServices.fetchAllCategoryProducts(
+      context: context,
+      category: widget.category,
+    );
+    debugPrint("ProductList: $productsList");
     setState(() {});
   }
 

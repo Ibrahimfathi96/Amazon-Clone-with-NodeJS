@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class HomeServices {
-  Future<List<ProductMd>> fetchAllProducts({
+  Future<List<ProductMd>> fetchAllCategoryProducts({
     required BuildContext context,
     required String category,
   }) async {
@@ -26,7 +26,6 @@ class HomeServices {
           "x-auth-token": userProvider.token
         },
       );
-      if (context.mounted) return productsList;
       httpErrorHandle(
         response: response,
         context: context,
