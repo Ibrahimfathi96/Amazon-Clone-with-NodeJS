@@ -28,8 +28,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
 
   @override
   void initState() {
-    final user = Provider.of<UserProvider>(context, listen: false).user;
     super.initState();
+    final user = Provider.of<UserProvider>(context, listen: false).user;
     double totalRating = 0;
     for (int i = 0; i < widget.productMd.ratings!.length; i++) {
       totalRating += widget.productMd.ratings![i].rating;
@@ -40,6 +40,13 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
     if (totalRating != 0) {
       avgRating = totalRating / widget.productMd.ratings!.length;
     }
+  }
+
+  void addToCart() {
+    services.addToCart(
+      context: context,
+      productMd: widget.productMd,
+    );
   }
 
   @override
@@ -151,7 +158,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                 child: CustomButton(
                   color: const Color.fromRGBO(254, 216, 19, 1),
                   text: "Add To Cart",
-                  onTap: () {},
+                  onTap: addToCart,
                 ),
               ),
               Container(

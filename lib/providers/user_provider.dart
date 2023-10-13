@@ -10,12 +10,18 @@ class UserProvider extends ChangeNotifier {
     address: '',
     type: '',
     token: '',
+    cart: [],
   );
 
   MyUser get user => _myUser;
 
   void setUser(String user) {
     _myUser = MyUser.fromJson(user);
+    notifyListeners();
+  }
+
+  void setUserFromModel(MyUser user) {
+    _myUser = user;
     notifyListeners();
   }
 }

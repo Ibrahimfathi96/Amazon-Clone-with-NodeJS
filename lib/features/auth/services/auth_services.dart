@@ -28,6 +28,7 @@ class AuthServices {
         address: "",
         type: "",
         token: "",
+        cart: [],
       );
       http.Response response = await http.post(
         Uri.parse('$uri/api/signup'),
