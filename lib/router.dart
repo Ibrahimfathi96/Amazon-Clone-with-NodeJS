@@ -1,4 +1,5 @@
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone/features/address/screens/address_screen.dart';
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
@@ -66,6 +67,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case CartScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const CartScreen(),
+      );
+    case AddressScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const AddressScreen(),
       );
     default:
       return MaterialPageRoute(
