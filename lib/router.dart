@@ -3,6 +3,7 @@ import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_view.dart';
+import 'package:amazon_clone/features/cart/screens/cart_screen.dart';
 import 'package:amazon_clone/features/home/screens/category_deals_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/product_details/screens/products_details_screen.dart';
@@ -61,6 +62,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (context) => CategoryDealsScreen(
           category: category,
         ),
+      );
+    case CartScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CartScreen(),
       );
     default:
       return MaterialPageRoute(
