@@ -50,7 +50,6 @@ class AdminServices {
         },
         body: productMd.toJson(),
       );
-      if (!context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,
@@ -59,7 +58,6 @@ class AdminServices {
         },
       );
     } catch (err) {
-      if (!context.mounted) return;
       showSnakeBar(context, err.toString());
     }
   }
@@ -77,7 +75,6 @@ class AdminServices {
           "x-auth-token": userProvider.token
         },
       );
-      if (!context.mounted) return productsList;
       httpErrorHandle(
         response: response,
         context: context,
@@ -117,7 +114,6 @@ class AdminServices {
           'id': productMd.id,
         }),
       );
-      if (!context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,

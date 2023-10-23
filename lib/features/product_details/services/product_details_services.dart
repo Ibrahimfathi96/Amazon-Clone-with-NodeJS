@@ -30,7 +30,6 @@ class ProductDetailsServices {
           },
         ),
       );
-      if (context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,
@@ -59,7 +58,6 @@ class ProductDetailsServices {
           },
         ),
       );
-      if (context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,

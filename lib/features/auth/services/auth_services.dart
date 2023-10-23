@@ -40,7 +40,6 @@ class AuthServices {
       debugPrint("===============SignUp==================================");
       debugPrint(
           "response: $response, Status-Code: ${response.statusCode}, Body: ${response.body}");
-      if (!context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,
@@ -79,20 +78,17 @@ class AuthServices {
       debugPrint("===============SignIn==================================");
       debugPrint(
           "response: $response, Status-Code: ${response.statusCode}, Body: ${response.body}");
-      if (!context.mounted) return;
       httpErrorHandle(
         response: response,
         context: context,
         onSuccess: () async {
           SharedPreferences preferences = await SharedPreferences.getInstance();
-          if (!context.mounted) return;
           Provider.of<UserProvider>(context, listen: false)
               .setUser(response.body);
           await preferences.setString(
             "x-auth-token",
             jsonDecode(response.body)['token'],
           );
-          if (!context.mounted) return;
           Navigator.pushNamedAndRemoveUntil(
             context,
             CustomBottomBar.routeName,
@@ -137,12 +133,10 @@ class AuthServices {
             "x-auth-token": token
           },
         );
-        if (!context.mounted) return;
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userResponse.body);
       }
     } catch (e) {
-      if (!context.mounted) return;
       showSnakeBar(
         context,
         "catch-errors:${e.toString()}",

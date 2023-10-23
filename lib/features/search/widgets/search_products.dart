@@ -1,4 +1,4 @@
-import 'package:amazon_clone/common/rating.dart';
+import 'package:amazon_clone/common/widgets/rating.dart';
 import 'package:amazon_clone/features/product_details/screens/products_details_screen.dart';
 import 'package:amazon_clone/models/product_model.dart';
 import 'package:flutter/material.dart';

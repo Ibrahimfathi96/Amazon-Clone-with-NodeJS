@@ -26,7 +26,6 @@ class SearchServices {
           "x-auth-token": userProvider.token
         },
       );
-      if (!context.mounted) return productsList;
       httpErrorHandle(
         response: response,
         context: context,

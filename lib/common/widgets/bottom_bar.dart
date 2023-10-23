@@ -36,65 +36,69 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    final userCartLength = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
       body: pages[page],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: page,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
-        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 32,
-        onTap: updatePage,
-        items: [
-          //HOME PAGE
-          BottomNavigationBarItem(
-            label: '',
-            icon: CustomBottomBarIcon(
-              currentPage: 0,
-              isSelected: page == 0 ? true : false,
-              icon: const Icon(
-                Icons.home_outlined,
-              ),
-            ),
-          ),
-          //CART
-          BottomNavigationBarItem(
-            label: '',
-            icon: CustomBottomBarIcon(
-              currentPage: 1,
-              isSelected: page == 1 ? true : false,
-              icon: badges.Badge(
-                badgeContent: Text(
-                  userCartLength.toString(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+      bottomNavigationBar: Consumer<UserProvider>(
+        builder: (context, userProvider, _) {
+          final userCartLength = userProvider.user.cart.length;
+          return BottomNavigationBar(
+            currentIndex: page,
+            selectedItemColor: GlobalVariables.selectedNavBarColor,
+            unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+            backgroundColor: GlobalVariables.backgroundColor,
+            iconSize: 32,
+            onTap: updatePage,
+            items: [
+              //HOME PAGE
+              BottomNavigationBarItem(
+                label: '',
+                icon: CustomBottomBarIcon(
+                  currentPage: 0,
+                  isSelected: page == 0 ? true : false,
+                  icon: const Icon(
+                    Icons.home_outlined,
                   ),
                 ),
-                badgeStyle: const badges.BadgeStyle(
-                  badgeColor: Colors.red,
-                  elevation: 0,
-                ),
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
+              ),
+              //CART
+              BottomNavigationBarItem(
+                label: '',
+                icon: CustomBottomBarIcon(
+                  currentPage: 1,
+                  isSelected: page == 1 ? true : false,
+                  icon: badges.Badge(
+                    badgeContent: Text(
+                      userCartLength.toString(),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    badgeStyle: const badges.BadgeStyle(
+                      badgeColor: Colors.red,
+                      elevation: 0,
+                    ),
+                    child: const Icon(
+                      Icons.shopping_cart_outlined,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          //ACCOUNT
-          BottomNavigationBarItem(
-            label: '',
-            icon: CustomBottomBarIcon(
-              currentPage: 2,
-              isSelected: page == 2 ? true : false,
-              icon: const Icon(
-                Icons.person_outline,
+              //ACCOUNT
+              BottomNavigationBarItem(
+                label: '',
+                icon: CustomBottomBarIcon(
+                  currentPage: 2,
+                  isSelected: page == 2 ? true : false,
+                  icon: const Icon(
+                    Icons.person_outline,
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }
