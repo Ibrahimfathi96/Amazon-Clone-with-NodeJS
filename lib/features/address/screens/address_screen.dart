@@ -3,12 +3,17 @@
 import 'package:amazon_clone/common/widgets/app_bar_leading.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/address/services/address_services.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
+import 'package:provider/provider.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/AddressScreen';
-  const AddressScreen({super.key});
+  final String totalAmount;
+  const AddressScreen({super.key, required this.totalAmount});
 
   @override
   State<AddressScreen> createState() => _AddressScreenState();
@@ -25,7 +30,21 @@ class _AddressScreenState extends State<AddressScreen> {
       PaymentConfiguration.fromAsset('applepay.json');
   final Future<PaymentConfiguration> _googlePayConfigFuture =
       PaymentConfiguration.fromAsset('gpay.json');
+  String addressToBeUse = '';
   List<PaymentItem> paymentItems = [];
+  final AddressServices addressServices = AddressServices();
+
+  @override
+  void initState() {
+    super.initState();
+    paymentItems.add(
+      PaymentItem(
+        amount: widget.totalAmount,
+        label: 'Total Amount',
+        status: PaymentItemStatus.final_price,
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -36,11 +55,46 @@ class _AddressScreenState extends State<AddressScreen> {
     _townCityController.dispose();
   }
 
-  void onGooglePayResult(paymentResult) {}
+  void onPayResult(paymentResult) {
+    var userAddress =
+        Provider.of<UserProvider>(context, listen: false).user.address;
+    if (userAddress.isEmpty) {
+      addressServices.saveUserAddress(
+        context: context,
+        address: addressToBeUse,
+      );
+    }
+    addressServices.placeOrder(
+      context: context,
+      address: addressToBeUse,
+      totalSum: double.parse(widget.totalAmount),
+    );
+  }
+
+  void payPressed(String addressFromProvider) {
+    addressToBeUse = '';
+    bool isFormValid = _flatBuildingController.text.trim().isNotEmpty ||
+        _areaStreetController.text.trim().isNotEmpty ||
+        _pincodeController.text.trim().isNotEmpty ||
+        _townCityController.text.trim().isNotEmpty;
+    if (isFormValid) {
+      if (_addressFormKey.currentState!.validate()) {
+        addressToBeUse =
+            '${_flatBuildingController.text}, ${_areaStreetController.text}, ${_townCityController.text} - ${_pincodeController.text}';
+      } else {
+        throw Exception('Please enter all the values!');
+      }
+    } else if (addressFromProvider.isNotEmpty) {
+      addressToBeUse = addressFromProvider;
+    } else {
+      showSnakeBar(context, "Error");
+    }
+    debugPrint(addressToBeUse);
+  }
+
   @override
   Widget build(BuildContext context) {
-    var address = '101 Fake Street';
-    // var address = context.watch<UserProvider>().user.address;
+    var address = context.watch<UserProvider>().user.address;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -121,13 +175,14 @@ class _AddressScreenState extends State<AddressScreen> {
                 future: _googlePayConfigFuture,
                 builder: (context, snapshot) => snapshot.hasData
                     ? GooglePayButton(
+                        onPressed: () => payPressed(address),
                         width: double.infinity,
                         height: 60,
                         paymentConfiguration: snapshot.data!,
                         paymentItems: paymentItems,
                         type: GooglePayButtonType.buy,
                         margin: const EdgeInsets.symmetric(vertical: 16.0),
-                        onPaymentResult: onGooglePayResult,
+                        onPaymentResult: onPayResult,
                         loadingIndicator: const Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -138,13 +193,14 @@ class _AddressScreenState extends State<AddressScreen> {
                 future: _applePayConfigFuture,
                 builder: (context, snapshot) => snapshot.hasData
                     ? ApplePayButton(
+                        onPressed: () => payPressed(address),
                         width: double.infinity,
                         height: 60,
                         paymentConfiguration: snapshot.data!,
                         paymentItems: paymentItems,
                         type: ApplePayButtonType.buy,
                         margin: const EdgeInsets.symmetric(vertical: 16.0),
-                        onPaymentResult: onGooglePayResult,
+                        onPaymentResult: onPayResult,
                         loadingIndicator: const Center(
                           child: CircularProgressIndicator(),
                         ),
