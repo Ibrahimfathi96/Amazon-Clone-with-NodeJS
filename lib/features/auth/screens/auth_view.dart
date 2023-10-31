@@ -16,57 +16,49 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signUp;
-  bool isLoading = false;
   final _signInFormKey = GlobalKey<FormState>();
   final _signUpFormKey = GlobalKey<FormState>();
   final AuthServices authServices = AuthServices();
-  bool isAuthenticating = false;
 
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _signUpEmailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _signUpPasswordController =
+      TextEditingController();
+
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _signUpNameController = TextEditingController();
+
   bool isVisible = false;
   IconData icon = Icons.visibility;
 
   @override
   void dispose() {
     super.dispose();
+    _signUpEmailController.dispose();
+    _signUpPasswordController.dispose();
+    _signUpNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
   }
 
   void signUpUser() {
-    setState(() {
-      isAuthenticating = true;
-    });
-
     authServices.signUpUser(
       context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
-      name: _nameController.text,
+      email: _signUpEmailController.text,
+      password: _signUpPasswordController.text,
+      name: _signUpNameController.text,
     );
-
-    setState(() {
-      isAuthenticating = false;
-    });
   }
 
   void signInUser() {
-    setState(() {
-      isAuthenticating = true;
-    });
-
     authServices.signInUser(
       context: context,
       email: _emailController.text,
       password: _passwordController.text,
     );
-
-    setState(() {
-      isAuthenticating = false;
-    });
   }
 
   //! Toggle between Password Visibility
@@ -129,7 +121,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           //! Full Name
                           CustomTextFormField(
                             hintText: 'Full Name',
-                            controller: _nameController,
+                            controller: _signUpNameController,
                           ),
                           const SizedBox(
                             height: 10,
@@ -137,7 +129,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           //! E-mail
                           CustomTextFormField(
                             hintText: 'Email',
-                            controller: _emailController,
+                            controller: _signUpEmailController,
                           ),
                           const SizedBox(
                             height: 10,
@@ -145,7 +137,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           //! Password
                           CustomTextFormField(
                             hintText: 'Password',
-                            controller: _passwordController,
+                            controller: _signUpPasswordController,
                             icon: icon,
                             obscureText: isVisible,
                             onChangeVisibilityPress: togglePasswordVisibility,
@@ -153,19 +145,14 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          isAuthenticating
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : CustomButton(
-                                  text: 'Sign-Up',
-                                  onTap: () {
-                                    if (_signUpFormKey.currentState!
-                                        .validate()) {
-                                      signUpUser();
-                                    }
-                                  },
-                                ),
+                          CustomButton(
+                            text: 'Sign-Up',
+                            onTap: () {
+                              if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -217,19 +204,14 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          isAuthenticating
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : CustomButton(
-                                  text: 'Sign-In',
-                                  onTap: () {
-                                    if (_signInFormKey.currentState!
-                                        .validate()) {
-                                      signInUser();
-                                    }
-                                  },
-                                ),
+                          CustomButton(
+                            text: 'Sign-In',
+                            onTap: () {
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
