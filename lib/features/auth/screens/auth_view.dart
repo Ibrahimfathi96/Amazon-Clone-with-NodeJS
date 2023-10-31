@@ -16,9 +16,11 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signUp;
+  bool isLoading = false;
   final _signInFormKey = GlobalKey<FormState>();
   final _signUpFormKey = GlobalKey<FormState>();
   final AuthServices authServices = AuthServices();
+  bool isAuthenticating = false;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -35,23 +37,39 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void signUpUser() {
+    setState(() {
+      isAuthenticating = true;
+    });
+
     authServices.signUpUser(
       context: context,
       email: _emailController.text,
       password: _passwordController.text,
       name: _nameController.text,
     );
+
+    setState(() {
+      isAuthenticating = false;
+    });
   }
 
   void signInUser() {
+    setState(() {
+      isAuthenticating = true;
+    });
+
     authServices.signInUser(
       context: context,
       email: _emailController.text,
       password: _passwordController.text,
     );
+
+    setState(() {
+      isAuthenticating = false;
+    });
   }
 
-  //! Toggle between Password Visibilty
+  //! Toggle between Password Visibility
   void togglePasswordVisibility() {
     setState(() {
       isVisible = !isVisible;
@@ -135,14 +153,19 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          CustomButton(
-                            text: 'Sign-Up',
-                            onTap: () {
-                              if (_signUpFormKey.currentState!.validate()) {
-                                signUpUser();
-                              }
-                            },
-                          ),
+                          isAuthenticating
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : CustomButton(
+                                  text: 'Sign-Up',
+                                  onTap: () {
+                                    if (_signUpFormKey.currentState!
+                                        .validate()) {
+                                      signUpUser();
+                                    }
+                                  },
+                                ),
                         ],
                       ),
                     ),
@@ -187,18 +210,26 @@ class _AuthScreenState extends State<AuthScreen> {
                           CustomTextFormField(
                             hintText: 'Password',
                             controller: _passwordController,
+                            icon: icon,
+                            obscureText: isVisible,
+                            onChangeVisibilityPress: togglePasswordVisibility,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          CustomButton(
-                            text: 'Sign-In',
-                            onTap: () {
-                              if (_signInFormKey.currentState!.validate()) {
-                                signInUser();
-                              }
-                            },
-                          ),
+                          isAuthenticating
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : CustomButton(
+                                  text: 'Sign-In',
+                                  onTap: () {
+                                    if (_signInFormKey.currentState!
+                                        .validate()) {
+                                      signInUser();
+                                    }
+                                  },
+                                ),
                         ],
                       ),
                     ),

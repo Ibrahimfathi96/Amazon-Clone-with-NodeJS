@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("../middlewares/authMiddleware");
 const { Product } = require("../models/product");
 const User = require("../models/user");
+const Order = require("../models/order");
 const userRouter = express.Router();
 
 //! ADD TO CART
@@ -100,7 +101,7 @@ userRouter.post("/api/orderProduct", auth, async (req, res) => {
       totalPrice,
       address,
       userId: req.user,
-      orderedAt: new Date.getTime(),
+      orderedAt: new Date().getTime(),
     });
     order = await order.save();
     res.json(order);

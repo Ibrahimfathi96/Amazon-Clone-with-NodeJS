@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/AddressScreen';
   final String totalAmount;
+
   const AddressScreen({super.key, required this.totalAmount});
 
   @override
@@ -30,7 +31,10 @@ class _AddressScreenState extends State<AddressScreen> {
       PaymentConfiguration.fromAsset('applepay.json');
   final Future<PaymentConfiguration> _googlePayConfigFuture =
       PaymentConfiguration.fromAsset('gpay.json');
+
   String addressToBeUse = '';
+  String addressCash = "";
+
   List<PaymentItem> paymentItems = [];
   final AddressServices addressServices = AddressServices();
 
@@ -67,6 +71,21 @@ class _AddressScreenState extends State<AddressScreen> {
     addressServices.placeOrder(
       context: context,
       address: addressToBeUse,
+      totalSum: double.parse(widget.totalAmount),
+    );
+  }
+
+  void onPayCash(userAddress) {
+    if (userAddress.isEmpty) {
+      addressServices.saveUserAddress(
+        context: context,
+        address: addressCash,
+      );
+    }
+
+    addressServices.placeOrder(
+      context: context,
+      address: userAddress,
       totalSum: double.parse(widget.totalAmount),
     );
   }
@@ -206,6 +225,57 @@ class _AddressScreenState extends State<AddressScreen> {
                         ),
                       )
                     : const SizedBox.shrink(),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (address.isNotEmpty) {
+                    onPayCash(address);
+                  } else if (_addressFormKey.currentState!.validate()) {
+                    addressCash =
+                        '${_flatBuildingController.text}, ${_areaStreetController.text}, ${_townCityController.text} - ${_pincodeController.text}';
+                    onPayCash(addressCash);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.wallet,
+                            size: 36,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Text(
+                              "Pay with Wallet Cash",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "\$ ${widget.totalAmount}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
