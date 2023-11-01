@@ -16,7 +16,7 @@ class CustomTopButton extends StatelessWidget {
         (route) => false,
       );
     } catch (e) {
-      print("Error during logout: $e");
+      debugPrint("Error during logout: $e");
     }
   }
 

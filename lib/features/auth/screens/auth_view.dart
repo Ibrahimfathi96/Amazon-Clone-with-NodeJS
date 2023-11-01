@@ -30,8 +30,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _signUpNameController = TextEditingController();
 
-  bool isVisible = false;
-  IconData icon = Icons.visibility;
+  bool isVisible = true;
+  IconData icon = Icons.visibility_off;
 
   @override
   void dispose() {

@@ -3,8 +3,11 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class DetailsAppBar extends StatelessWidget {
+  final void Function(String) onFieldSubmitted;
+
   const DetailsAppBar({
     super.key,
+    required this.onFieldSubmitted,
   });
 
   @override
@@ -29,7 +32,7 @@ class DetailsAppBar extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       elevation: 2,
                       child: TextFormField(
-                        onFieldSubmitted: (value) {},
+                        onFieldSubmitted: onFieldSubmitted,
                         decoration: InputDecoration(
                           hintText: "Search Amazon.in",
                           hintStyle: const TextStyle(

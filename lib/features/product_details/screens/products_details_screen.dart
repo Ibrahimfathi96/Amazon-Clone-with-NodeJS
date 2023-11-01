@@ -3,6 +3,7 @@ import 'package:amazon_clone/common/widgets/rating.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone/features/product_details/widgets/product_details_appbar.dart';
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:amazon_clone/models/product_model.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -42,6 +43,10 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
     }
   }
 
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
   void addToCart() {
     services.addToCart(
       context: context,
@@ -58,9 +63,11 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
       ),
       child: SafeArea(
         child: Scaffold(
-          appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(62),
-            child: DetailsAppBar(),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(62),
+            child: DetailsAppBar(
+              onFieldSubmitted: navigateToSearchScreen,
+            ),
           ),
           body: ListView(
             physics: const BouncingScrollPhysics(),

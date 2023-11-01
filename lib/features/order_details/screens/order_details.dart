@@ -37,9 +37,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       ),
       child: SafeArea(
         child: Scaffold(
-          appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(62),
-            child: DetailsAppBar(),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(62),
+            child: DetailsAppBar(
+              onFieldSubmitted: navigateToSearchScreen,
+            ),
           ),
           body: SingleChildScrollView(
             child: Padding(
