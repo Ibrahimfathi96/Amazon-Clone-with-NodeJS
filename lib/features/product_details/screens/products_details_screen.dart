@@ -60,7 +60,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
         child: Scaffold(
           appBar: const PreferredSize(
             preferredSize: Size.fromHeight(62),
-            child: ProductsDetailsAppBar(),
+            child: DetailsAppBar(),
           ),
           body: ListView(
             physics: const BouncingScrollPhysics(),

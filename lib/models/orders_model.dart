@@ -5,11 +5,12 @@ import 'package:amazon_clone/models/product_model.dart';
 class OrdersMd {
   final String id;
   final List<ProductMd> products;
-  final List<int> quantity;
+  final List<num> quantity;
   final String address;
   final String userId;
   final int status;
   final int orderedAt;
+  final num totalPrice;
 
   OrdersMd({
     required this.id,
@@ -19,6 +20,7 @@ class OrdersMd {
     required this.userId,
     required this.status,
     required this.orderedAt,
+    required this.totalPrice,
   });
 
   Map<String, dynamic> toMap() {
@@ -30,6 +32,7 @@ class OrdersMd {
       'userId': userId,
       'status': status,
       'orderedAt': orderedAt,
+      'totalPrice': totalPrice,
     };
   }
 
@@ -52,6 +55,7 @@ class OrdersMd {
       userId: map['userId'] ?? '',
       status: map['status'] ?? 0,
       orderedAt: map['orderedAt'] ?? 0,
+      totalPrice: map['totalPrice'] ?? 0,
     );
   }
 

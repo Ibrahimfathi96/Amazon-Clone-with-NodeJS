@@ -2,6 +2,7 @@ import 'package:amazon_clone/common/widgets/custom_loader.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/account/services/account_services.dart';
 import 'package:amazon_clone/features/account/widgets/product_item_widget.dart';
+import 'package:amazon_clone/features/order_details/screens/order_details.dart';
 import 'package:amazon_clone/models/orders_model.dart';
 import 'package:flutter/material.dart';
 
@@ -75,8 +76,17 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: ordersList!.length,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => ProduceItemWidget(
-                    imageUrl: ordersList![index].products[0].images[0],
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        OrderDetailsScreen.routeName,
+                        arguments: ordersList![index],
+                      );
+                    },
+                    child: ProduceItemWidget(
+                      imageUrl: ordersList![index].products[0].images[0],
+                    ),
                   ),
                 ),
               ),

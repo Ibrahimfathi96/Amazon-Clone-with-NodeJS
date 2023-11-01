@@ -2,8 +2,8 @@ import 'package:amazon_clone/common/widgets/app_bar_leading.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
-class ProductsDetailsAppBar extends StatelessWidget {
-  const ProductsDetailsAppBar({
+class DetailsAppBar extends StatelessWidget {
+  const DetailsAppBar({
     super.key,
   });
 
