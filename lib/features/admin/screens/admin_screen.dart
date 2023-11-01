@@ -1,5 +1,6 @@
 import 'package:amazon_clone/common/widgets/custom_bottom_bar_icon.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/admin/screens/orders_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:amazon_clone/features/admin/widgets/admin_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,7 @@ class _AdminScreenState extends State<AdminScreen> {
         child: Text("Analytics Screen"),
       ),
     ),
-    const Scaffold(
-      body: Center(
-        child: Text("Orders Screen"),
-      ),
-    ),
+    const OrdersScreen(),
   ];
 
   void updatePage(int updatedPage) {

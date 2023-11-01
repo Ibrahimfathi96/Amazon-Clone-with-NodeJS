@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/models/orders_model.dart';
 import 'package:amazon_clone/models/product_model.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -120,6 +121,66 @@ class AdminServices {
         onSuccess: () {
           onSuccess();
         },
+      );
+    } catch (err) {
+      showSnakeBar(context, err.toString());
+    }
+  }
+
+  //! FETCHING ALL THE ORDERS
+  Future<List<OrdersMd>> fetchAllOrders({required BuildContext context}) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).user;
+    List<OrdersMd> ordersList = [];
+    try {
+      http.Response response = await http.get(
+        Uri.parse("$uri/admin/getAllOrders"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "x-auth-token": userProvider.token
+        },
+      );
+      httpErrorHandle(
+        response: response,
+        context: context,
+        onSuccess: () {
+          for (var i = 0; i < jsonDecode(response.body).length; i++) {
+            ordersList.add(
+              OrdersMd.fromJson(
+                jsonEncode(
+                  jsonDecode(response.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (err) {
+      showSnakeBar(context, err.toString());
+    }
+    return ordersList;
+  }
+
+  //! CHANGING STATUS OF A PRODUCT FOR THE STEPPER
+  void changeOrdersStatus({
+    required BuildContext context,
+    required int status,
+    required OrdersMd ordersMd,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).user;
+    try {
+      http.Response response = await http.post(
+        Uri.parse("$uri/admin/changeOrdersStatus"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "x-auth-token": userProvider.token
+        },
+        body: jsonEncode({'id': ordersMd.id, 'status': status}),
+      );
+      httpErrorHandle(
+        response: response,
+        context: context,
+        onSuccess: onSuccess,
       );
     } catch (err) {
       showSnakeBar(context, err.toString());

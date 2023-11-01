@@ -1,9 +1,13 @@
+import 'package:amazon_clone/common/widgets/custom_button.dart';
+import 'package:amazon_clone/features/admin/services/admin_services.dart';
 import 'package:amazon_clone/features/product_details/widgets/product_details_appbar.dart';
 import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:amazon_clone/models/orders_model.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   static const String routeName = '/OrderDetailsScreen';
@@ -17,9 +21,24 @@ class OrderDetailsScreen extends StatefulWidget {
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   int currentStep = 0;
+  final AdminServices services = AdminServices();
 
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  //!!! ONLY FOR ADMINS !!!
+  void changeOrderStatus(int status) {
+    services.changeOrdersStatus(
+      context: context,
+      status: status + 1,
+      ordersMd: widget.ordersMd,
+      onSuccess: () {
+        setState(() {
+          currentStep += 1;
+        });
+      },
+    );
   }
 
   @override
@@ -30,6 +49,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Color(0XFF1DC9C1),
@@ -161,6 +181,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     child: Stepper(
                       currentStep: currentStep,
                       controlsBuilder: (context, details) {
+                        if (user.type == "admin") {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomButton(
+                              text: "Done",
+                              onTap: () =>
+                                  changeOrderStatus(details.currentStep),
+                            ),
+                          );
+                        }
                         return const SizedBox();
                       },
                       steps: [
