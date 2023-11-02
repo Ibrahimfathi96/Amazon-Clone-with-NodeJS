@@ -6,6 +6,8 @@ import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
+import 'package:amazon_clone/features/auth/screens/auth_view.dart';
 import 'package:amazon_clone/models/my_user_model.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,7 @@ class AuthServices {
     required String password,
   }) async {
     try {
+      var userProvider = Provider.of<UserProvider>(context, listen: false);
       http.Response response = await http.post(
         Uri.parse('$uri/api/signin'),
         body: jsonEncode({
@@ -85,17 +88,22 @@ class AuthServices {
         context: context,
         onSuccess: () async {
           SharedPreferences preferences = await SharedPreferences.getInstance();
-          Provider.of<UserProvider>(context, listen: false)
-              .setUser(response.body);
+          userProvider.setUser(response.body);
           await preferences.setString(
             "x-auth-token",
             jsonDecode(response.body)['token'],
           );
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            CustomBottomBar.routeName,
-            (route) => false,
-          );
+          userProvider.user.type == "user"
+              ? Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  CustomBottomBar.routeName,
+                  (route) => false,
+                )
+              : Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AdminScreen.routeName,
+                  (route) => false,
+                );
         },
       );
     } catch (e) {
@@ -143,6 +151,20 @@ class AuthServices {
         context,
         "catch-errors:${e.toString()}",
       );
+    }
+  }
+
+  void signOut(BuildContext context) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString("x-auth-token", '');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AuthScreen.routeName,
+        (route) => false,
+      );
+    } catch (e) {
+      debugPrint("Error during logout: $e");
     }
   }
 }

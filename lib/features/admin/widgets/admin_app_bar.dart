@@ -1,28 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:amazon_clone/constants/global_variables.dart';
-import 'package:amazon_clone/features/auth/screens/auth_view.dart';
+import 'package:amazon_clone/features/auth/services/auth_services.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminAppBar extends StatelessWidget {
   const AdminAppBar({
     super.key,
   });
-
-  void signOut(BuildContext context) async {
-    try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.remove("x-auth-token");
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        AuthScreen.routeName,
-        (route) => false,
-      );
-    } catch (e) {
-      debugPrint("Error during logout: $e");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +41,7 @@ class AdminAppBar extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {
-                    signOut(context);
-                  },
+                  onPressed: () => AuthServices().signOut(context),
                   icon: const Icon(
                     Icons.logout,
                     size: 30,

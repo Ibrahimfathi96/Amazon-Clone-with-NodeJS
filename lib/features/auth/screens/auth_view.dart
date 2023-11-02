@@ -1,4 +1,5 @@
 import 'package:amazon_clone/common/widgets/custom_button.dart';
+import 'package:amazon_clone/common/widgets/custom_loader.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/enums.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
@@ -15,7 +16,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Auth _auth = Auth.signUp;
+  Auth _auth = Auth.signIn;
   final _signInFormKey = GlobalKey<FormState>();
   final _signUpFormKey = GlobalKey<FormState>();
   final AuthServices authServices = AuthServices();
@@ -31,6 +32,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _signUpNameController = TextEditingController();
 
   bool isVisible = true;
+  bool isLoading = false;
   IconData icon = Icons.visibility_off;
 
   @override
@@ -145,14 +147,23 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          CustomButton(
-                            text: 'Sign-Up',
-                            onTap: () {
-                              if (_signUpFormKey.currentState!.validate()) {
-                                signUpUser();
-                              }
-                            },
-                          ),
+                          isLoading == true
+                              ? const CustomLoader()
+                              : CustomButton(
+                                  text: 'Sign-Up',
+                                  onTap: () {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    if (_signUpFormKey.currentState!
+                                        .validate()) {
+                                      signUpUser();
+                                    }
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  },
+                                ),
                         ],
                       ),
                     ),
@@ -204,14 +215,23 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          CustomButton(
-                            text: 'Sign-In',
-                            onTap: () {
-                              if (_signInFormKey.currentState!.validate()) {
-                                signInUser();
-                              }
-                            },
-                          ),
+                          isLoading == true
+                              ? const CustomLoader()
+                              : CustomButton(
+                                  text: 'Sign-In',
+                                  onTap: () {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    if (_signInFormKey.currentState!
+                                        .validate()) {
+                                      signInUser();
+                                    }
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  },
+                                ),
                         ],
                       ),
                     ),

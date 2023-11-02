@@ -1,26 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:amazon_clone/features/account/widgets/account_button.dart';
-import 'package:amazon_clone/features/auth/screens/auth_view.dart';
+import 'package:amazon_clone/features/auth/services/auth_services.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomTopButton extends StatelessWidget {
   const CustomTopButton({super.key});
-
-  void signOut(BuildContext context) async {
-    try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.remove("x-auth-token");
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        AuthScreen.routeName,
-        (route) => false,
-      );
-    } catch (e) {
-      debugPrint("Error during logout: $e");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +32,7 @@ class CustomTopButton extends StatelessWidget {
             ),
             AccountButton(
               buttonText: "Log Out",
-              onTap: () {
-                signOut(context);
-              },
+              onTap: () => AuthServices().signOut(context),
               isLogOut: true,
             ),
           ],

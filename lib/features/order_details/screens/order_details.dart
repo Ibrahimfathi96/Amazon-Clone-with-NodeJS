@@ -232,7 +232,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           isActive: currentStep >= 3,
                           state: currentStep > 3
                               ? StepState.complete
-                              : StepState.indexed,
+                              : StepState.disabled,
                         ),
                       ],
                     ),
