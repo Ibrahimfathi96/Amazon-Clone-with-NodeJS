@@ -55,7 +55,7 @@ Forget Password Using phone and email resetting by email link via nodemailer.
   </div>
   <div style="margin: 10px;">
     <img src="./Photos/21.jpg" alt="Image 1" width="200">
-    <img src="./Photos/22.jpg" alt="Image 2" width="200">
+    <img src="./Photos/18.jpg" alt="Image 2" width="200">
     <img src="./Photos/23.jpg" alt="Image 3" width="200">
     <img src="./Photos/24.jpg" alt="Image 4" width="200">
   </div>
