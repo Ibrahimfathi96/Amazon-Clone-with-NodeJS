@@ -55,42 +55,41 @@ Forget Password Using phone and email resetting by email link via nodemailer.
   </div>
   <div style="margin: 10px;">
     <img src="./Photos/21.jpg" alt="Image 1" width="200">
-    <img src="./Photos/18.jpg" alt="Image 2" width="200">
     <img src="./Photos/23.jpg" alt="Image 3" width="200">
     <img src="./Photos/24.jpg" alt="Image 4" width="200">
+    <img src="./Photos/25.jpg" alt="Image 1" width="200">
   </div>
   <div style="margin: 10px;">
-    <img src="./Photos/25.jpg" alt="Image 1" width="200">
     <img src="./Photos/26.jpg" alt="Image 2" width="200">
     <img src="./Photos/27.jpg" alt="Image 3" width="200">
     <img src="./Photos/28.jpg" alt="Image 4" width="200">
+    <img src="./Photos/29.jpg" alt="Image 1" width="200">
   </div>
   <div style="margin: 10px;">
-    <img src="./Photos/29.jpg" alt="Image 1" width="200">
     <img src="./Photos/30.jpg" alt="Image 2" width="200">
     <img src="./Photos/31.jpg" alt="Image 3" width="200">
     <img src="./Photos/32.jpg" alt="Image 4" width="200">
+    <img src="./Photos/33.jpg" alt="Image 1" width="200">
   </div>
   <div style="margin: 10px;">
-    <img src="./Photos/33.jpg" alt="Image 1" width="200">
     <img src="./Photos/34.jpg" alt="Image 2" width="200">
     <img src="./Photos/35.jpg" alt="Image 3" width="200">
     <img src="./Photos/36.jpg" alt="Image 4" width="200">
+    <img src="./Photos/37.jpg" alt="Image 1" width="200">
   </div>
   <div style="margin: 10px;">
-    <img src="./Photos/37.jpg" alt="Image 1" width="200">
     <img src="./Photos/38.jpg" alt="Image 2" width="200">
     <img src="./Photos/39.jpg" alt="Image 3" width="200">
     <img src="./Photos/40.jpg" alt="Image 4" width="200">
+    <img src="./Photos/41.jpg" alt="Image 1" width="200">
   </div>
   <div style="margin: 10px;">
-    <img src="./Photos/41.jpg" alt="Image 1" width="200">
     <img src="./Photos/42.jpg" alt="Image 2" width="200">
     <img src="./Photos/43.jpg" alt="Image 3" width="200">
     <img src="./Photos/44.jpg" alt="Image 4" width="200">
+    <img src="./Photos/45.jpg" alt="Image 1" width="200">
   </div>
   <div style="margin: 10px;">
-    <img src="./Photos/45.jpg" alt="Image 1" width="200">
     <img src="./Photos/46.jpg" alt="Image 2" width="200">
     <img src="./Photos/47.jpg" alt="Image 3" width="200">
   </div>
