@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:amazon_clone/features/account/widgets/account_button.dart';
 import 'package:amazon_clone/features/auth/screens/auth_view.dart';
 import 'package:flutter/material.dart';

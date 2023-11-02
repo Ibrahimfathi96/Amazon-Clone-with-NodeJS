@@ -2,6 +2,7 @@ import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/features/address/screens/address_screen.dart';
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
+import 'package:amazon_clone/features/admin/screens/edit_product.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_view.dart';
 import 'package:amazon_clone/features/cart/screens/cart_screen.dart';
@@ -82,6 +83,13 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (context) => OrderDetailsScreen(
           ordersMd: ordersMd,
+        ),
+      );
+    case EditProduct.routeName:
+      var productMd = routeSettings.arguments as ProductMd;
+      return MaterialPageRoute(
+        builder: (context) => EditProduct(
+          productMd: productMd,
         ),
       );
     default:

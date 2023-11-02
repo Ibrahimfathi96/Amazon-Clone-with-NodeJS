@@ -1,6 +1,7 @@
 import 'package:amazon_clone/common/widgets/custom_loader.dart';
 import 'package:amazon_clone/features/account/widgets/product_item_widget.dart';
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
+import 'package:amazon_clone/features/admin/screens/edit_product.dart';
 import 'package:amazon_clone/features/admin/services/admin_services.dart';
 import 'package:amazon_clone/models/product_model.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,14 @@ class _PostsScreenState extends State<PostsScreen> {
 
   void navigateToAddProduct() {
     Navigator.pushNamed(context, AddProductScreen.routeName);
+  }
+
+  void navigateToEditProduct(ProductMd productMd) {
+    Navigator.pushNamed(
+      context,
+      EditProduct.routeName,
+      arguments: productMd,
+    );
   }
 
   fetchAllProducts() async {
@@ -64,38 +73,44 @@ class _PostsScreenState extends State<PostsScreen> {
               ),
               itemBuilder: (context, index) {
                 final productData = products![index];
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: 140,
-                      child: ProduceItemWidget(
-                        imageUrl: productData.images[0],
+                return GestureDetector(
+                  onTap: () {
+                    navigateToEditProduct(products![index]);
+                  },
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 140,
+                        child: ProduceItemWidget(
+                          imageUrl: productData.images[0],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              productData.name,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: const TextStyle(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                productData.name,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: const TextStyle(),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () => deleteProduct(productData, index),
-                            icon: const Icon(
-                              Icons.delete_forever,
-                              color: Colors.red,
+                            IconButton(
+                              onPressed: () =>
+                                  deleteProduct(productData, index),
+                              icon: const Icon(
+                                Icons.delete_forever,
+                                color: Colors.red,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             ),

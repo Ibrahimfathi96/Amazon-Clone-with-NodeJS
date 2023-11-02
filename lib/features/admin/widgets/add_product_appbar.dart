@@ -3,8 +3,10 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class AddProductAppBar extends StatelessWidget {
+  final String title;
   const AddProductAppBar({
     super.key,
+    required this.title,
   });
 
   @override
@@ -12,9 +14,9 @@ class AddProductAppBar extends StatelessWidget {
     return AppBar(
       leading: const AppBarLeading(),
       centerTitle: true,
-      title: const Text(
-        "Add Product",
-        style: TextStyle(
+      title: Text(
+        title,
+        style: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
         ),

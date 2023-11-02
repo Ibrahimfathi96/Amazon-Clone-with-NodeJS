@@ -23,6 +23,7 @@ dependencies:
   pay: ^1.1.2
   provider: ^6.0.5
   shared_preferences: ^2.2.1
+  syncfusion_flutter_charts: ^23.1.43
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -43,8 +44,3 @@ flutter:
     - assets/
     - assets/applepay.json
     - assets/gpay.json
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #         style: italic
